@@ -58,43 +58,60 @@ void ofApp::draw(){
     ofEnableBlendMode(OF_BLENDMODE_ADD);
     
     float x_spacing = img.getWidth(); // get 3 points
-    float yCenter = ofGetHeight() / 2.0;
+    float yCenter = ofGetHeight() / 2.0 - img.getHeight()/2.0; // center the imgs
+    float xCenter = ofGetWidth() / 2.0 - img.getWidth()/2.0; // center the imgs
     int y_img_n_half = yCenter / img.getHeight(); // can at most put this many img at half
     int count=0;// for counting img print on yCenter axis
-    for(int i=0; i<buffer.size(); i+=buffer.size()/(ofGetWidth()/x_spacing)){
-//        printf("i=%d, buffer[i]=%f\n",i,buffer[i]);
-        
+    
+    // draw symmertric
+    for(int i=0; i<buffer.size(); i+=buffer.size()/(ofGetWidth()/2.0/x_spacing)){
         // set color
         ofColor col;
-        float hue = ofMap(i, 0, buffer.size(), 0, 255);
-        float br = ofMap(buffer[i], 0.0, 1.0, 50, 255);
-        int n_img_verti = int(ofMap(buffer[i], 0.0, 1.0, 0, y_img_n_half)); // of the freq is stronger, more img printed on vertical direction
+        float hue = ofMap(i, 0, buffer.size(), 0, 200);
+        float br = ofMap(buffer[i]<1e-6 ? 10*sqrt(buffer[i]) : buffer[i], 0.0, 1.0, 100, 255);
+        int n_img_verti = int(ofMap(buffer[i]<1e-6 ? 10*sqrt(buffer[i]) : buffer[i], 0.0, 1.0, 0, y_img_n_half)); // of the freq is stronger, more img printed on vertical direction
         col.setHsb(hue, 255, br, 255);
         ofSetColor(col);
         
-        
-        // reset the drawing origin
-//        for(int j=0; j<ofGetHeight()/y_spacing; j++){
+        // draw imgs on the center y axis
+        // left
+        float lx = xCenter - x_spacing * count;
+        ofPushMatrix();
+        ofTranslate(lx, yCenter);
+        for(auto& line: outline){
+            line.draw();
+        }
+        ofPopMatrix();
+        // extra img print on the vertical direction
+        for(int k=-n_img_verti; k<n_img_verti; k++){
             ofPushMatrix();
-            ofTranslate(x_spacing * count, yCenter);
-//            ofTranslate(x_spacing * (i+1), y_spacing * (j+1));
-            // draw the reji icon
+            ofTranslate(lx, yCenter + k * img.getHeight());
             for(auto& line: outline){
                 line.draw();
             }
             ofPopMatrix();
+        }
         
-            // extra img print on the vertical direction
-            for(int k=-n_img_verti; k<n_img_verti; k++){
-                ofPushMatrix();
-                ofTranslate(x_spacing * count, yCenter + k * img.getHeight());
-                for(auto& line: outline){
-                    line.draw();
-                }
-                ofPopMatrix();
+        // right
+        ofPushMatrix();
+        float rx = xCenter + x_spacing * count;
+        ofTranslate(rx, yCenter);
+        for(auto& line: outline){
+            line.draw();
+        }
+        ofPopMatrix();
+        
+        // extra img print on the vertical direction
+        for(int k=-n_img_verti; k<n_img_verti; k++){
+            ofPushMatrix();
+            ofTranslate(rx, yCenter + k * img.getHeight());
+            for(auto& line: outline){
+                line.draw();
             }
+            ofPopMatrix();
+        }
         count++;
-            
+        
 //        }
     }
     // print normal sound responser on the buttom
@@ -105,11 +122,11 @@ void ofApp::draw(){
         float br = ofMap(buffer[i], 0.0, 1.0, 0, 255);
         col.setHsb(hue, 255, br, 255);
         ofSetColor(col);
-        
-        // debug
-        float x=ofMap(i, 0, buffer.size(), 0, ofGetWidth()/1.0);
+        // also print this symmmertically
+        float x=ofMap(i, 0, buffer.size(), 0, ofGetWidth()/2.0);
         float y=ofMap(buffer[i], 0.0, 1.0, 0.0, ofGetHeight()/4.0);
-        ofDrawLine(x, ofGetHeight(), x, ofGetHeight() - y);
+        ofDrawLine(ofGetWidth()/2.0 - x, ofGetHeight(), ofGetWidth()/2.0 -x, ofGetHeight() - y); // left
+        ofDrawLine(ofGetWidth()/2.0 + x, ofGetHeight(), ofGetWidth()/2.0 + x, ofGetHeight() - y); // right
     }
 }
 
