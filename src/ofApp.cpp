@@ -44,7 +44,8 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     // fade-out effect
-//    ofSetColor(0,0,0,200); // larger the alpha val, faster the fade out
+//    ofSetColor(0,0,0,10); // larger the alpha val, faster the fade out
+//    ofFill();
 //    ofDrawRectangle(0,0,ofGetWidth(), ofGetHeight());
     
     
@@ -60,16 +61,45 @@ void ofApp::draw(){
     float x_spacing = img.getWidth(); // get 3 points
     float yCenter = ofGetHeight() / 2.0 - img.getHeight()/2.0; // center the imgs
     float xCenter = ofGetWidth() / 2.0 - img.getWidth()/2.0; // center the imgs
+    vector<float> rangeMax(ofGetWidth()/2.0/x_spacing + 1,0);
+    int range_i=0;
+    int range_band = buffer.size()/rangeMax.size(); // the length of a range among the buffer
+    float local_max=0.0;
+    
+    // print normal sound responser on the buttom
+    for(int i=0; i<buffer.size(); i++){
+        // set color
+        ofColor col;
+        float hue = ofMap(i, 0, buffer.size(), 0, 255);
+        float br = ofMap(buffer[i], 0.0, 1.0, 0, 255);
+        col.setHsb(hue, 255, br, 255);
+        ofSetColor(col);
+        // also print this symmmertically
+        float x=ofMap(i, 0, buffer.size(), 0, ofGetWidth()/2.0);
+        float y=ofMap(buffer[i], 0.0, 1.0, 0.0, ofGetHeight()/4.0);
+        ofDrawLine(ofGetWidth()/2.0 - x, ofGetHeight(), ofGetWidth()/2.0 -x, ofGetHeight() - y); // left
+        ofDrawLine(ofGetWidth()/2.0 + x, ofGetHeight(), ofGetWidth()/2.0 + x, ofGetHeight() - y); // right
+        
+        // update the range max value
+        local_max = buffer[i]>local_max ? buffer[i] : local_max;
+        // store range max
+        if((i+1) % range_band==0 and range_i<rangeMax.size()) {
+//            printf("rangeMax=%f,",local_max);
+            rangeMax[range_i++] = local_max;
+            local_max=0.0;
+        }
+    }
+    
+    // draw symmertric using rangeMax vector (rather than buffer[i])
     int y_img_n_half = yCenter / img.getHeight(); // can at most put this many img at half
     int count=0;// for counting img print on yCenter axis
     
-    // draw symmertric
-    for(int i=0; i<buffer.size(); i+=buffer.size()/(ofGetWidth()/2.0/x_spacing)){
+    for(int i=0; i<rangeMax.size(); i++){
         // set color
         ofColor col;
-        float hue = ofMap(i, 0, buffer.size(), 0, 200);
-        float br = ofMap(buffer[i]<1e-6 ? 10*sqrt(buffer[i]) : buffer[i], 0.0, 1.0, 100, 255);
-        int n_img_verti = int(ofMap(buffer[i]<1e-6 ? 10*sqrt(buffer[i]) : buffer[i], 0.0, 1.0, 0, y_img_n_half)); // of the freq is stronger, more img printed on vertical direction
+        float hue = ofMap(i*range_band, 0, buffer.size(), 0, 200);
+        float br = ofMap(rangeMax[i], 0.0, 1.0, 100, 255);
+        int n_img_verti = int(ofMap(rangeMax[i], 0.0, 1.0, 0, y_img_n_half)); // of the freq is stronger, more img printed on vertical direction
         col.setHsb(hue, 255, br, 255);
         ofSetColor(col);
         
@@ -113,20 +143,6 @@ void ofApp::draw(){
         count++;
         
 //        }
-    }
-    // print normal sound responser on the buttom
-    for(int i=0; i<buffer.size(); i++){
-        // set color
-        ofColor col;
-        float hue = ofMap(i, 0, buffer.size(), 0, 255);
-        float br = ofMap(buffer[i], 0.0, 1.0, 0, 255);
-        col.setHsb(hue, 255, br, 255);
-        ofSetColor(col);
-        // also print this symmmertically
-        float x=ofMap(i, 0, buffer.size(), 0, ofGetWidth()/2.0);
-        float y=ofMap(buffer[i], 0.0, 1.0, 0.0, ofGetHeight()/4.0);
-        ofDrawLine(ofGetWidth()/2.0 - x, ofGetHeight(), ofGetWidth()/2.0 -x, ofGetHeight() - y); // left
-        ofDrawLine(ofGetWidth()/2.0 + x, ofGetHeight(), ofGetWidth()/2.0 + x, ofGetHeight() - y); // right
     }
 }
 
