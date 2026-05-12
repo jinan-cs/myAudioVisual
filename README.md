@@ -23,15 +23,18 @@ If error occurs or the option is not found, run `make` in the termminal directly
 
 
 Note that the program may ask for permission to asscess the `bin/data` file and the access to the microphone.
-## Input changable from the user
+## User Interact
+- Press `w` key to turn on/off the wave at the bottom.
+- Make some noise or play some music in front of microphone!
+  - (Note: If the waveform is dead, please check if the microphone is on, and is not blocking the application.)
+## Other Input Changable by the user
 - An image
+  - By now, the image need to be changed manually.
   - This will be used to generate the stamp.
   - The input filename is hardcoded in `setup()` in `ofApp.cpp`, can be changed to other filenames. accroding to the user's image.
   - Add your image in `bin/data` , and change the image file name in line `img.load("tab.png");` (`ofApp.cpp`) to yours!
   - The image is expected to have white background with clear blacklines on it, since the program will extract its lines and store it into polyline vector form for the drawing loop.
 Please 
-- Make some noise or play some music in front of microphone!
-  - If the waveform is dead, please check if the microphone is on, and is not blocking the application.
 
 ## Parameter adjustable from developer
 - FFT Sample rate

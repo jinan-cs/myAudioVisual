@@ -38,4 +38,7 @@ class ofApp : public ofBaseApp{
     // for low, mid, high value analysis
     ofxEasyFft fft;
     float gain=2.0;
+    
+    // flag for controll what to draw
+    bool draw_raw_fft;
 };
