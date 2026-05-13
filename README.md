@@ -17,10 +17,11 @@ At the bottom, the wave form shows a higher sample rate, which is actually the r
 
 ## Usage
 
-For Xcode, open the project, and press `commmand`+`R` or click on the Run buttom on the left up corner.
-
-For VS Code, try `command`+`shift`+`P` > **build and run task** first.
-If error occurs or the option is not found, run `make` in the termminal directly and then `make RunRelease` to execute the program. 
+- For Xcode, open the project, and press `commmand`+`R` or click on the Run buttom on the left up corner.
+  - If build failed, try using the projectGenerator, update this project while including the required addons.
+  - This mayrequire yourself downloading the extra addons from Kyle Mcdolnad's repo. 
+- For VS Code, try `command`+`shift`+`P` > **build and run task** first.
+  - If error occurs or the option is not found, run `make` in the termminal directly and then `make RunRelease` to execute the program. 
 
 Note that the program may ask for permission to asscess the `bin/data` file and the access to the microphone.
 
