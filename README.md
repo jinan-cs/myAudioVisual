@@ -19,7 +19,7 @@ At the bottom, the wave form shows a higher sample rate, which is actually the r
 
 - For Xcode, open the project, and press `commmand`+`R` or click on the Run buttom on the left up corner.
   - If build failed, try using the projectGenerator, update this project while including the required addons.
-  - This mayrequire yourself downloading the extra addons from Kyle Mcdolnad's repo. 
+  - This may require yourself downloading the extra addons from [Kyle Mcdolnad](https://github.com/kylemcdonald)'s repo. 
 - For VS Code, try `command`+`shift`+`P` > **build and run task** first.
   - If error occurs or the option is not found, run `make` in the termminal directly and then `make RunRelease` to execute the program. 
 
@@ -51,9 +51,9 @@ Note that the program may ask for permission to asscess the `bin/data` file and 
   - The project vectorises the given png/jpg file (default is given, storing under `/bin/data`) and generates discrete wave-like sound-reaction animation by using it as a stamp.
   - By changing the image in the `data` folder manually, the user can customise what to be the stamp and enjoy the visual effect.
 
-## Addons
+## Required Addons
 - openframeworks built-in addons
   - `ofxOpenCV`
-- addons by Kyle Mcdonald
-  - `ofxCv`: for simpler img preprocessing for line extraction.
-  - `ofxFft`: for capturing and processing the sound into FFT buffer.
+- addons by [Kyle Mcdonald](https://github.com/kylemcdonald)
+  - [`ofxCv`](https://github.com/kylemcdonald/ofxCv): for simpler img preprocessing for line extraction.
+  - [`ofxFft`](https://github.com/kylemcdonald/ofxFft): for capturing and processing the sound into FFT buffer.
