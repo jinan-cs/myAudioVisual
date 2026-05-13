@@ -11,7 +11,7 @@ This project generates CG visual from sound input from the microphone.
 The following is a screenshot while the app is running.
 ![example](example.png)
 
-Please also check the demo video `demo.mmov` to see how it acutally reacts real-time from the microphone input.
+Please also check the demo video `demo.mov` to see how it acutally reacts real-time from the microphone input.
 
 At the bottom, the wave form shows a higher sample rate, which is actually the raw FFT extracted before processed into the img version. This servers as a reference for the relatively true wave form.
 
