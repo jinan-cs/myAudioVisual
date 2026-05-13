@@ -36,8 +36,7 @@ Note that the program may ask for permission to asscess the `bin/data` file and 
   - This will be used to generate the stamp.
   - The input filename is hardcoded in `setup()` in `ofApp.cpp`, can be changed to other filenames. accroding to the user's image.
   - Add your image in `bin/data` , and change the image file name in line `img.load("tab.png");` (`ofApp.cpp`) to yours!
-  - The image is expected to have white background with clear blacklines on it, since the program will extract its lines and store it into polyline vector form for the drawing loop.
-Please 
+  - The image is expected to have white background with clear blacklines on it, since the program will extract its lines and store it into polyline vector form for the drawing loop. 
 
 
 ## Parameter adjustable by developer
