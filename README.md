@@ -1,6 +1,6 @@
 # Realtime Customised Audio Visual Prototype
 
-This project generates CG visual from sound input from the microphone.
+This project generates CG visual from sound input from the microphone using openframeworks library.
 
 ## Features
 - High/mid/low frequency-reactive lighting
@@ -48,7 +48,8 @@ Note that the program may ask for permission to asscess the `bin/data` file and 
 
 ## Technical Details
 - The stamp
-  - The project vectorises the given png/jpg file (default is given, storing under `/bin/data`) and generates discrete wave-like sound-reaction animation by using it as a stamp.
+  - In `setup()` step, project vectorises the given png/jpg from pixel arrays to a array of vertices (to be specific, into `ofxPolyLine` vector). This lowers the overhead for printing the pixels in every draw loop.
+  - In runtime, the image will be temparily stored and drawn using the vectorised stamp. 
   - By changing the image in the `data` folder manually, the user can customise what to be the stamp and enjoy the visual effect.
 
 ## Required Addons
