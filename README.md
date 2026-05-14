@@ -14,6 +14,10 @@ The following is a screenshot while the app is running.
 Please also check the demo video `demo.mov` to see how it acutally reacts real-time from the microphone input.
 
 At the bottom, the wave form shows a higher sample rate, which is actually the raw FFT extracted before processed into the img version. This servers as a reference for the relatively true wave form.
+## Prerequest
+Make sure you have downloaded [openframeworks](https://openframeworks.cc/download/)(oF) and put this project under the path `openframeworks/../../` under openframeworks root to build the needed code. (e.g. `apps/myApps/myProjectName`)
+
+There are also setup guides in the oF's official for different OS and IDE.
 
 ## Usage
 
